@@ -2,15 +2,8 @@
 {
     partial class Form1
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,97 +15,135 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            inputCode = new TextBox();
-            whatToDo = new Label();
-            decodeButton = new Button();
-            outputCode = new Label();
-            buttonCopy = new Button();
+            txtSecretKey = new TextBox();
+            lblInstruction = new Label();
+            btnDecode = new Button();
+            lblOutput = new Label();
+            btnCopy = new Button();
+            grpMode = new GroupBox();
+            rdoBase32 = new RadioButton();
+            rdoHex = new RadioButton();
+            grpMode.SuspendLayout();
             SuspendLayout();
             // 
-            // inputCode
+            // txtSecretKey
             // 
-            inputCode.Location = new Point(12, 73);
-            inputCode.Name = "inputCode";
-            inputCode.Size = new Size(320, 23);
-            inputCode.TabIndex = 0;
-            inputCode.TextChanged += inputCode_TextChanged;
+            txtSecretKey.Location = new Point(12, 126);
+            txtSecretKey.Name = "txtSecretKey";
+            txtSecretKey.Size = new Size(320, 23);
+            txtSecretKey.TabIndex = 0;
+            txtSecretKey.TextChanged += txtSecretKey_TextChanged;
             // 
-            // whatToDo
+            // lblInstruction
             // 
-            whatToDo.AutoSize = true;
-            whatToDo.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            whatToDo.Location = new Point(12, 18);
-            whatToDo.Name = "whatToDo";
-            whatToDo.Size = new Size(175, 15);
-            whatToDo.TabIndex = 1;
-            whatToDo.Text = "Input secret key to decode here:";
-            whatToDo.Click += whatToDo_Click;
+            lblInstruction.AutoSize = true;
+            lblInstruction.Font = new Font("Segoe UI", 9F);
+            lblInstruction.Location = new Point(12, 18);
+            lblInstruction.Name = "lblInstruction";
+            lblInstruction.Size = new Size(175, 15);
+            lblInstruction.TabIndex = 1;
+            lblInstruction.Text = "Please input the secret key in the textbox.";
             // 
-            // decodeButton
+            // btnDecode
             // 
-            decodeButton.Location = new Point(338, 73);
-            decodeButton.Name = "decodeButton";
-            decodeButton.Size = new Size(75, 23);
-            decodeButton.TabIndex = 2;
-            decodeButton.Text = "Decode!";
-            decodeButton.UseVisualStyleBackColor = true;
-            decodeButton.Click += decodeButton_Click;
+            btnDecode.Location = new Point(338, 125);
+            btnDecode.Name = "btnDecode";
+            btnDecode.Size = new Size(75, 23);
+            btnDecode.TabIndex = 3;
+            btnDecode.Text = "Decode!";
+            btnDecode.UseVisualStyleBackColor = true;
+            btnDecode.Click += btnDecode_Click;
             // 
-            // outputCode
+            // lblOutput
             // 
-            outputCode.AutoSize = true;
-            outputCode.Location = new Point(12, 45);
-            outputCode.Name = "outputCode";
-            outputCode.Size = new Size(0, 15);
-            outputCode.TabIndex = 3;
-            outputCode.Click += outputCode_Click;
+            lblOutput.AutoSize = true;
+            lblOutput.Location = new Point(12, 45);
+            lblOutput.Name = "lblOutput";
+            lblOutput.Size = new Size(0, 15);
+            lblOutput.TabIndex = 2;
             // 
-            // buttonCopy
+            // btnCopy
             // 
-            buttonCopy.Location = new Point(338, 45);
-            buttonCopy.Name = "buttonCopy";
-            buttonCopy.Size = new Size(75, 23);
-            buttonCopy.TabIndex = 4;
-            buttonCopy.Text = "Copy";
-            buttonCopy.UseVisualStyleBackColor = true;
-            buttonCopy.Click += buttonCopy_Click;
+            btnCopy.Location = new Point(338, 90);
+            btnCopy.Name = "btnCopy";
+            btnCopy.Size = new Size(75, 23);
+            btnCopy.TabIndex = 4;
+            btnCopy.Text = "Copy";
+            btnCopy.UseVisualStyleBackColor = true;
+            btnCopy.Click += btnCopy_Click;
+            // 
+            // grpMode
+            // 
+            grpMode.Controls.Add(rdoBase32);
+            grpMode.Controls.Add(rdoHex);
+            grpMode.Location = new Point(12, 70);
+            grpMode.Name = "grpMode";
+            grpMode.Size = new Size(200, 50);
+            grpMode.TabIndex = 5;
+            grpMode.TabStop = false;
+            grpMode.Text = "Encoding Mode";
+            // 
+            // rdoBase32
+            // 
+            rdoBase32.AutoSize = true;
+            rdoBase32.Location = new Point(6, 22);
+            rdoBase32.Name = "rdoBase32";
+            rdoBase32.Size = new Size(95, 19);
+            rdoBase32.TabIndex = 0;
+            rdoBase32.TabStop = true;
+            rdoBase32.Text = "Base32 Mode";
+            rdoBase32.UseVisualStyleBackColor = true;
+            // 
+            // rdoHex
+            // 
+            rdoHex.AutoSize = true;
+            rdoHex.Location = new Point(110, 22);
+            rdoHex.Name = "rdoHex";
+            rdoHex.Size = new Size(79, 19);
+            rdoHex.TabIndex = 1;
+            rdoHex.TabStop = true;
+            rdoHex.Text = "Hex Mode";
+            rdoHex.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
+            AcceptButton = btnDecode;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(434, 111);
-            Controls.Add(buttonCopy);
-            Controls.Add(outputCode);
-            Controls.Add(decodeButton);
-            Controls.Add(whatToDo);
-            Controls.Add(inputCode);
+            ClientSize = new Size(434, 161);
+            Controls.Add(grpMode);
+            Controls.Add(btnCopy);
+            Controls.Add(lblOutput);
+            Controls.Add(btnDecode);
+            Controls.Add(lblInstruction);
+            Controls.Add(txtSecretKey);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MaximumSize = new Size(450, 150);
+            MaximumSize = new Size(450, 200);
             MinimizeBox = false;
-            MinimumSize = new Size(450, 150);
+            MinimumSize = new Size(450, 200);
             Name = "Form1";
             Text = "Authenticator";
             Load += Form1_Load;
+            grpMode.ResumeLayout(false);
+            grpMode.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox inputCode;
-        private Label whatToDo;
-        private Button decodeButton;
-        private Label outputCode;
-        private Button buttonCopy;
+        private TextBox txtSecretKey;
+        private Label lblInstruction;
+        private Button btnDecode;
+        private Label lblOutput;
+        private Button btnCopy;
+        private RadioButton rdoBase32;
+        private RadioButton rdoHex;
+        private GroupBox grpMode;
     }
 }

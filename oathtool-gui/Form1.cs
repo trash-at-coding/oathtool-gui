@@ -1,80 +1,81 @@
 using OtpNet;
-using System.Reflection.Metadata;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace oathtool_gui
 {
     public partial class Form1 : Form
     {
         private bool hasShownReminder = false;
+
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            rdoBase32.Checked = true; // Default mode
         }
 
-        private void whatToDo_Click(object sender, EventArgs e)
+        private void txtSecretKey_TextChanged(object sender, EventArgs e)
         {
+            lblOutput.Text = "";
+            lblOutput.ForeColor = Color.Black;
         }
 
-        private void outputCode_Click(object sender, EventArgs e)
+        private void btnDecode_Click(object sender, EventArgs e)
         {
-        }
+            string input = txtSecretKey.Text.Trim();
 
-        private void inputCode_TextChanged(object sender, EventArgs e)
-        {
-        }
-        private void decodeButton_Click(object sender, EventArgs e)
-        {
+            if (string.IsNullOrEmpty(input))
+            {
+                lblOutput.ForeColor = Color.Red;
+                lblOutput.Text = "Please enter a secret key.";
+                return;
+            }
+
             try
             {
-                string base32Key = inputCode.Text.Trim();
+                byte[] keyBytes;
 
-                if (string.IsNullOrEmpty(base32Key))
+                if (rdoBase32.Checked)
                 {
-                    outputCode.ForeColor = Color.Red;
-                    outputCode.Text = "I'm not going to decode nothing as the code!";
-                    return;
+                    keyBytes = Base32Encoding.ToBytes(input);
                 }
-
-                byte[] keyBytes = Base32Encoding.ToBytes(base32Key);
-                var totp = new Totp(keyBytes);
-                string code = totp.ComputeTotp();
-                outputCode.ForeColor = Color.Black;
-                outputCode.Text = $"TOTP Code: {code}";
-            }
-            catch (Exception ex)
-            {
-                outputCode.ForeColor = Color.Red;
-                if (ex.Message.Contains("(Parameter 'c')"))
+                else if (rdoHex.Checked)
                 {
-                    string base32err = $"The secret key is invalid.";
-                    outputCode.Text = $"Error: {base32err}";
+                    keyBytes = DecodeHexString(input.Replace(" ", ""));
                 }
                 else
                 {
-                    outputCode.Text = $"Error: {ex.Message}";
+                    lblOutput.ForeColor = Color.Red;
+                    lblOutput.Text = "Please select an encoding mode.";
+                    return;
                 }
+
+                var totp = new Totp(keyBytes);
+                string code = totp.ComputeTotp();
+                lblOutput.ForeColor = Color.Black;
+                lblOutput.Text = $"TOTP Code: {code}";
+            }
+            catch (Exception ex)
+            {
+                lblOutput.ForeColor = Color.Red;
+                lblOutput.Text = $"Error: {ex.Message}";
             }
         }
 
-        private void buttonCopy_Click(object sender, EventArgs e)
+        private void btnCopy_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(outputCode.Text))
-            {
-                // Optionally just copy the digits (not the label prefix)
-                string code = outputCode.Text;
-                if (code.StartsWith("TOTP Code: "))
-                {
-                    code = code.Substring("TOTP Code: ".Length);
-                }
+            string output = lblOutput.Text;
 
+            if (!string.IsNullOrWhiteSpace(output) && output.StartsWith("TOTP Code: "))
+            {
+                string code = output.Substring("TOTP Code: ".Length);
                 Clipboard.SetText(code);
 
-                // Show reminder only the first time
                 if (!hasShownReminder)
                 {
                     MessageBox.Show(
@@ -87,6 +88,21 @@ namespace oathtool_gui
                     hasShownReminder = true;
                 }
             }
+        }
+
+        // Hex string decoder (supports A-F, a-f, 0-9, even-length only)
+        private static byte[] DecodeHexString(string hex)
+        {
+            if (hex.Length % 2 != 0)
+                throw new ArgumentException("Hex string must have an even number of characters.");
+
+            byte[] result = new byte[hex.Length / 2];
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+            }
+
+            return result;
         }
     }
 }
