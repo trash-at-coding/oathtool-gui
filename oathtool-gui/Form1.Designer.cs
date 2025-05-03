@@ -43,7 +43,7 @@
             lblInstruction.Font = new Font("Segoe UI", 9F);
             lblInstruction.Location = new Point(12, 18);
             lblInstruction.Name = "lblInstruction";
-            lblInstruction.Size = new Size(175, 15);
+            lblInstruction.Size = new Size(223, 15);
             lblInstruction.TabIndex = 1;
             lblInstruction.Text = "Please input the secret key in the textbox.";
             // 
@@ -60,14 +60,14 @@
             // lblOutput
             // 
             lblOutput.AutoSize = true;
-            lblOutput.Location = new Point(12, 45);
+            lblOutput.Location = new Point(12, 105);
             lblOutput.Name = "lblOutput";
-            lblOutput.Size = new Size(0, 15);
+            lblOutput.Size = new Size(26, 15);
             lblOutput.TabIndex = 2;
             // 
             // btnCopy
             // 
-            btnCopy.Location = new Point(338, 90);
+            btnCopy.Location = new Point(338, 97);
             btnCopy.Name = "btnCopy";
             btnCopy.Size = new Size(75, 23);
             btnCopy.TabIndex = 4;
@@ -79,7 +79,7 @@
             // 
             grpMode.Controls.Add(rdoBase32);
             grpMode.Controls.Add(rdoHex);
-            grpMode.Location = new Point(12, 70);
+            grpMode.Location = new Point(12, 44);
             grpMode.Name = "grpMode";
             grpMode.Size = new Size(200, 50);
             grpMode.TabIndex = 5;

@@ -1,6 +1,8 @@
 using OtpNet;
 using System;
 using System.Drawing;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 
 namespace oathtool_gui
@@ -79,9 +81,9 @@ namespace oathtool_gui
                 if (!hasShownReminder)
                 {
                     MessageBox.Show(
-                        "Make sure to save the secret key, NOT the decoded key, in a safe place. You may need it to sign in again.",
+                        "Be sure to store the secret key, not the decoded key, in a secure location. You may need it to sign in again.",
                         "Reminder",
-                        MessageBoxButtons.OK,
+                    MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
 
